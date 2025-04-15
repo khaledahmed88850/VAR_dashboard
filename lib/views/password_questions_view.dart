@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:var_dashboard/data/cubits/password_questions_cubit.dart/password_questions_cubit.dart';
-import 'package:var_dashboard/models/password_questions_model.dart';
 
 import '../widgets/custom_text_field.dart';
 
@@ -14,10 +13,8 @@ class PasswordQuestionsView extends StatefulWidget {
 }
 
 class _PasswordQuestionsViewState extends State<PasswordQuestionsView> {
-  late String name, url;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
-  final textField = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,16 +34,12 @@ class _PasswordQuestionsViewState extends State<PasswordQuestionsView> {
                 SizedBox(height: 120),
                 CustomTextField(
                   labelText: 'Player name',
-                  onSubmitted: (value) {
-                    name = value;
-                  },
+                  controller: context.read<PasswordQuestionsCubit>().playerName,
                 ),
                 SizedBox(height: 30),
                 CustomTextField(
                   labelText: 'wikipedia Url',
-                  onSubmitted: (value) {
-                    url = value;
-                  },
+                  controller: context.read<PasswordQuestionsCubit>().url,
                 ),
                 SizedBox(height: 30),
                 ElevatedButton(
@@ -57,16 +50,11 @@ class _PasswordQuestionsViewState extends State<PasswordQuestionsView> {
                     ),
                   ),
                   onPressed: () {
-                    textField.clear();
                     if (formKey.currentState!.validate()) {
                       formKey.currentState!.save();
-                      PasswordQuestionsModel passwordQuestionsModel =
-                          PasswordQuestionsModel(name: name, url: url);
                       context
                           .read<PasswordQuestionsCubit>()
-                          .addPasswordQuestions(
-                            passwordQuestionModel: passwordQuestionsModel,
-                          );
+                          .addPasswordQuestions();
                       ScaffoldMessenger.of(
                         context,
                       ).showSnackBar(SnackBar(content: Text('Player Added')));

@@ -1,22 +1,13 @@
 import 'package:flutter/material.dart';
 
-class CustomTextField extends StatefulWidget {
-  const CustomTextField({super.key, this.onSubmitted, required this.labelText});
-  final ValueChanged<String>? onSubmitted;
+class CustomTextField extends StatelessWidget {
+  const CustomTextField({
+    super.key,
+    required this.labelText,
+    required this.controller,
+  });
   final String labelText;
-
-  @override
-  State<CustomTextField> createState() => _CustomTextFieldState();
-}
-
-class _CustomTextFieldState extends State<CustomTextField> {
-  TextEditingController controller = TextEditingController();
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
-
+  final TextEditingController controller;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -27,13 +18,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
         }
         return null;
       },
-      onSaved: (value) {
-        controller.clear();
-        widget.onSubmitted!(value!);
-      },
       decoration: InputDecoration(
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
-        labelText: widget.labelText,
+        labelText: labelText,
       ),
     );
   }

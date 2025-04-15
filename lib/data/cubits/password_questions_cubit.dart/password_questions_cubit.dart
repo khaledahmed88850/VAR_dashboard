@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter/material.dart';
 import 'package:var_dashboard/data/repo/password_challenge_repo.dart';
 import 'package:var_dashboard/errors/exceptions.dart';
 import 'package:var_dashboard/models/password_questions_model.dart';
@@ -11,19 +11,29 @@ class PasswordQuestionsCubit extends Cubit<PasswordQuestionsState> {
   PasswordQuestionsCubit(this.passwordChallengeRepo)
     : super(PasswordQuestionsInitial());
   final PasswordChallengeRepo passwordChallengeRepo;
-
-  Future<void> addPasswordQuestions({
-    required PasswordQuestionsModel passwordQuestionModel,
-  }) async {
+  TextEditingController playerName = TextEditingController();
+  TextEditingController url = TextEditingController();
+  Future<void> addPasswordQuestions() async {
     emit(PasswordQuestionsLoading());
     try {
+      PasswordQuestionsModel passwordQuestionModel = PasswordQuestionsModel(
+        name: playerName.text,
+        url: url.text,
+      );
       await passwordChallengeRepo.addData(
         data: passwordQuestionModel.toJson(),
         path: FirestoreEndpoints.passwordChallenge,
       );
+      clearControllerText();
       emit(PasswordQuestionsSuccess());
     } on Customexception catch (e) {
+      clearControllerText();
       emit(PasswordQuestionsFailure(message: e.message));
     }
+  }
+
+  void clearControllerText() {
+    playerName.clear();
+    url.clear();
   }
 }
