@@ -1,50 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:var_dashboard/data/cubits/password_questions_cubit.dart/password_questions_cubit.dart';
+import 'package:var_dashboard/data/cubits/bank_questions_cubit/bank_questions_cubit.dart';
+import 'package:var_dashboard/widgets/custom_text_field.dart';
 
-import '../widgets/custom_text_field.dart';
-
-class PasswordQuestionsView extends StatefulWidget {
-  const PasswordQuestionsView({super.key});
-  static const routeName = '/password-questions';
+class BankQuestionsView extends StatefulWidget {
+  const BankQuestionsView({super.key});
+  static const String routeName = '/bank-questions';
 
   @override
-  State<PasswordQuestionsView> createState() => _PasswordQuestionsViewState();
+  State<BankQuestionsView> createState() => _BankQuestionsViewState();
 }
 
-class _PasswordQuestionsViewState extends State<PasswordQuestionsView> {
+class _BankQuestionsViewState extends State<BankQuestionsView> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Password Questions'),
+        title: const Text('Bank Questions'),
         centerTitle: true,
-        backgroundColor: const Color(0x878ADDE0),
+        backgroundColor: const Color(0xFFD5AA46),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: SingleChildScrollView(
-          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Form(
             key: formKey,
             child: Column(
               children: [
-                SizedBox(height: 120),
+                SizedBox(height: 100),
                 CustomTextField(
-                  labelText: 'Player name',
-                  controller: context.read<PasswordQuestionsCubit>().playerName,
+                  labelText: 'Question',
+                  controller: context.read<BankQuestionsCubit>().question,
                 ),
-                SizedBox(height: 30),
+                SizedBox(height: 50),
                 CustomTextField(
-                  labelText: 'wikipedia Url',
-                  controller: context.read<PasswordQuestionsCubit>().url,
+                  labelText: 'Answer',
+                  controller: context.read<BankQuestionsCubit>().answer,
                 ),
                 SizedBox(height: 30),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0x878ADDE0),
+                    backgroundColor: const Color(0xFFD5AA46),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -52,12 +50,10 @@ class _PasswordQuestionsViewState extends State<PasswordQuestionsView> {
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
                       formKey.currentState!.save();
-                      context
-                          .read<PasswordQuestionsCubit>()
-                          .addPasswordQuestions();
-                      ScaffoldMessenger.of(
-                        context,
-                      ).showSnackBar(SnackBar(content: Text('Player Added')));
+                      context.read<BankQuestionsCubit>().addBankQuestions();
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('question added')),
+                      );
                     } else {
                       setState(() {
                         autovalidateMode = AutovalidateMode.always;
