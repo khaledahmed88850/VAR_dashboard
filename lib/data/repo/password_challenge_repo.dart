@@ -3,7 +3,7 @@ import 'package:var_dashboard/services/database_services.dart';
 class PasswordChallengeRepo {
   final DatabaseServices databaseServices;
 
-  PasswordChallengeRepo({required this.databaseServices});
+  const PasswordChallengeRepo({required this.databaseServices});
 
   Future<void> addData({
     required String path,

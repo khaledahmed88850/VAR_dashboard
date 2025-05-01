@@ -20,7 +20,7 @@ class _BankQuestionsViewState extends State<BankQuestionsView> {
       appBar: AppBar(
         title: const Text('Bank Questions'),
         centerTitle: true,
-        backgroundColor: const Color(0xFFD5AA46),
+        backgroundColor: const Color(0xFF9C710D),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -42,7 +42,7 @@ class _BankQuestionsViewState extends State<BankQuestionsView> {
                 SizedBox(height: 30),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFD5AA46),
+                    backgroundColor: const Color(0xFF9C710D),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -62,7 +62,7 @@ class _BankQuestionsViewState extends State<BankQuestionsView> {
                   },
                   child: const Text(
                     'Save',
-                    style: TextStyle(color: Colors.black, fontSize: 16),
+                    style: TextStyle(color: Colors.white, fontSize: 16),
                   ),
                 ),
               ],

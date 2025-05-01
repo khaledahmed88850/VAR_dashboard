@@ -20,7 +20,7 @@ class _PasswordQuestionsViewState extends State<RiskQuestionsView> {
       appBar: AppBar(
         title: const Text('Risk Questions'),
         centerTitle: true,
-        backgroundColor: const Color(0xE364E179),
+        backgroundColor: const Color(0xE10C681B),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -80,7 +80,7 @@ class _PasswordQuestionsViewState extends State<RiskQuestionsView> {
                     SizedBox(height: 30),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xE364E179),
+                        backgroundColor: const Color(0xE10C681B),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -100,7 +100,7 @@ class _PasswordQuestionsViewState extends State<RiskQuestionsView> {
                       },
                       child: const Text(
                         'Save',
-                        style: TextStyle(color: Colors.black, fontSize: 16),
+                        style: TextStyle(color: Colors.white, fontSize: 16),
                       ),
                     ),
                     SizedBox(height: 10),

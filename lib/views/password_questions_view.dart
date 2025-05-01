@@ -66,7 +66,7 @@ class _PasswordQuestionsViewState extends State<PasswordQuestionsView> {
                   },
                   child: const Text(
                     'Save',
-                    style: TextStyle(color: Colors.black, fontSize: 16),
+                    style: TextStyle(color: Colors.white, fontSize: 16),
                   ),
                 ),
               ],
