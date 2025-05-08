@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 import 'package:var_dashboard/data/repo/bank_challenge_repo.dart';
 import 'package:var_dashboard/errors/exceptions.dart';
 import 'package:var_dashboard/models/bank_questions_model.dart';

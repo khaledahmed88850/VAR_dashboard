@@ -5,9 +5,7 @@ class WhoamiQuestionsModel {
   final String clue4;
   final String clue5;
   final String answer;
-  final num random;
   WhoamiQuestionsModel({
-    required this.random,
     required this.clue1,
     required this.clue2,
     required this.clue3,
@@ -17,7 +15,6 @@ class WhoamiQuestionsModel {
   });
   toJson() {
     return {
-      'random': random,
       'clue1': clue1,
       'clue2': clue2,
       'clue3': clue3,

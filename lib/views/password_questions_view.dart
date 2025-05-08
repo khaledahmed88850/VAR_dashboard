@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:var_dashboard/constants.dart';
 import 'package:var_dashboard/data/cubits/password_questions_cubit.dart/password_questions_cubit.dart';
+import 'package:var_dashboard/widgets/massenger_message.dart';
 
 import '../widgets/custom_text_field.dart';
 
@@ -25,51 +27,70 @@ class _PasswordQuestionsViewState extends State<PasswordQuestionsView> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: SingleChildScrollView(
-          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-          child: Form(
-            key: formKey,
-            child: Column(
-              children: [
-                SizedBox(height: 120),
-                CustomTextField(
-                  labelText: 'Player name',
-                  controller: context.read<PasswordQuestionsCubit>().playerName,
+        child: BlocListener<PasswordQuestionsCubit, PasswordQuestionsState>(
+          listener: (context, state) {
+            if (state is PasswordQuestionsSuccess) {
+              massengerMessage(
+                context: context,
+                message: 'Player Added',
+                color: successColor,
+              );
+            } else if (state is PasswordQuestionsFailure) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    state.message,
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  backgroundColor: failureColor,
                 ),
-                SizedBox(height: 30),
-                CustomTextField(
-                  labelText: 'wikipedia Url',
-                  controller: context.read<PasswordQuestionsCubit>().url,
-                ),
-                SizedBox(height: 30),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0x878ADDE0),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+              );
+            }
+          },
+          child: SingleChildScrollView(
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+            child: Form(
+              key: formKey,
+              child: Column(
+                children: [
+                  SizedBox(height: 120),
+                  CustomTextField(
+                    labelText: 'Player name',
+                    controller:
+                        context.read<PasswordQuestionsCubit>().playerName,
+                  ),
+                  SizedBox(height: 30),
+                  CustomTextField(
+                    labelText: 'wikipedia Url',
+                    controller: context.read<PasswordQuestionsCubit>().url,
+                  ),
+                  SizedBox(height: 30),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0x878ADDE0),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    onPressed: () {
+                      if (formKey.currentState!.validate()) {
+                        formKey.currentState!.save();
+                        context
+                            .read<PasswordQuestionsCubit>()
+                            .addPasswordQuestions();
+                      } else {
+                        setState(() {
+                          autovalidateMode = AutovalidateMode.always;
+                        });
+                      }
+                    },
+                    child: const Text(
+                      'Save',
+                      style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
                   ),
-                  onPressed: () {
-                    if (formKey.currentState!.validate()) {
-                      formKey.currentState!.save();
-                      context
-                          .read<PasswordQuestionsCubit>()
-                          .addPasswordQuestions();
-                      ScaffoldMessenger.of(
-                        context,
-                      ).showSnackBar(SnackBar(content: Text('Player Added')));
-                    } else {
-                      setState(() {
-                        autovalidateMode = AutovalidateMode.always;
-                      });
-                    }
-                  },
-                  child: const Text(
-                    'Save',
-                    style: TextStyle(color: Colors.white, fontSize: 16),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

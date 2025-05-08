@@ -1,8 +1,5 @@
-import 'dart:math';
-
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
-import 'package:meta/meta.dart';
 import 'package:var_dashboard/data/repo/whoami_challenge_repo.dart';
 import 'package:var_dashboard/errors/exceptions.dart';
 import 'package:var_dashboard/models/whoami_questions_model.dart';
@@ -23,7 +20,6 @@ class WhoAmIQuestionsCubit extends Cubit<WhoAmIQuestionsState> {
   Future<void> addData() async {
     emit(WhoAmIQuestionsLoading());
     try {
-      final random = Random().nextDouble();
       WhoamiQuestionsModel whoamiQuestionsModel = WhoamiQuestionsModel(
         answer: answer.text,
         clue1: clue1.text,
@@ -31,7 +27,6 @@ class WhoAmIQuestionsCubit extends Cubit<WhoAmIQuestionsState> {
         clue3: clue3.text,
         clue4: clue4.text,
         clue5: clue5.text,
-        random: random,
       );
       await whoamiChallengeRepo.addData(data: whoamiQuestionsModel.toJson());
 
